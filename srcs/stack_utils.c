@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   stack_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kdrturan <kdrturan@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/04 17:32:29 by tuaydin           #+#    #+#             */
-/*   Updated: 2025/03/04 20:03:25 by kdrturan         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
 t_stack	*stack_new(int val)
@@ -42,6 +30,7 @@ void	stack_add_back(t_stack **stack, t_stack *new)
 
 	if (!stack || !(*stack))
 	{
+		new->index = -1;
 		*stack = new;
 		return ;
 	}

@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kdrturan <kdrturan@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/30 13:45:44 by tuaydin           #+#    #+#             */
-/*   Updated: 2025/03/04 19:53:56 by kdrturan         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <limits.h>
 # include <stdarg.h>
 # include "libft.h"
 # include "ft_printf.h"
@@ -46,9 +35,14 @@ t_stack	*stack_pop(t_stack **stack);
 void	stack_free(t_stack **stack);
 
 
-int is_sorted(t_stack** stack);
-void sort_three(t_stack** stack);
-void	sort_fourth(t_stack** stack,t_stack** stackb);
+int		is_sorted(t_stack* stack);
+int		find_min(t_stack *stack);
+int		find_max_bits(int size);
+void	sort_three(t_stack** stack);
+void	sort_four(t_stack** stack,t_stack** stackb);
 void	sort_five(t_stack** stack,t_stack** stackb);
-
+void	sort_radix(t_stack **stack_a, t_stack **stack_b);
+void	set_index(t_stack** stack);
+void	check_errors(int ac, char **args);
+int		is_numeric(char *str);
 #endif

@@ -5,7 +5,7 @@ CFLAGS = -fsanitize=undefined -g #-Wall -Wextra -Werror
 LIBFT = libs/libft/libft.a
 PRINTF = libs/ft_printf/libftprintf.a
 
-SRCS = $(wildcard srcs/*.c)
+#SRCS = $(wildcard srcs/*.c)
 
 OBJS = $(SRCS:.c=.o)
 

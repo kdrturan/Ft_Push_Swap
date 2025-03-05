@@ -1,46 +1,36 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kdrturan <kdrturan@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/30 14:34:06 by tuaydin           #+#    #+#             */
-/*   Updated: 2025/03/04 17:14:02 by kdrturan         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
+
+void	determine(t_stack** stack_a, t_stack** stack_b)
+{
+	int	size;
+
+	size = stack_size(*stack_a);
+	if (size == 1)
+		return;
+	else if (size == 2)
+			ra(stack_a,1);
+	else if (size == 3)
+		sort_three(stack_a);
+	else if (size == 4)
+		sort_four(stack_a,stack_b);
+	else if (size == 5)
+		sort_five(stack_a,stack_b);	
+	else
+		sort_radix(stack_a,stack_b);
+}
 
 int main(int ac, char *args[])
 {
-	t_stack *a;
-	t_stack *b;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
 	t_stack	*tmp;
 	
-	a = ps_parse(ac, args);
-	b = NULL;
-
-	ft_printf("--------A--------\n");
-	tmp = a;
-	if (tmp)
-		for (int i = 0; i < stack_size(a); i++)
-		{
-			ft_printf("%d %d\n",i, tmp->val);
-			tmp = tmp->next;
-		}
-
-	int c = is_sorted(&a);
-	ft_printf("Is Sorted: %d\n",c);
-	sort_five(&a,&b);
-	c = is_sorted(&a);
-	ft_printf("Is Sorted: %d\n",c);
-	tmp = a;
-	if (tmp)
-		for (int i = 0; i < stack_size(a); i++)
-		{
-			ft_printf("%d %d\n",i, tmp->val);
-			tmp = tmp->next;
-		}
-	stack_free(&a);
+	check_errors(ac, args);
+	stack_a = ps_parse(ac, args);
+	stack_b = NULL;
+	if (!is_sorted(stack_a))
+		return (0);
+	set_index(&stack_a);
+	determine(&stack_a,&stack_b);
+	stack_free(&stack_a);
 }

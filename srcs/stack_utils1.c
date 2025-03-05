@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   stack_utils1.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tuaydin <tuaydin@student.42istanbul.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/04 19:40:43 by tuaydin           #+#    #+#             */
-/*   Updated: 2024/12/25 16:37:44 by tuaydin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "push_swap.h"
 
 t_stack	*stack_pop(t_stack **stack)
@@ -30,5 +18,30 @@ void	stack_free(t_stack **stack)
 		temp = *stack;
 		*stack = (*stack)->next;
 		free(temp);
+	}
+}
+
+void	set_index(t_stack** stack)
+{
+	t_stack* min;
+	t_stack* temp;
+	int	i;
+	int	size;
+
+	i = 0;
+	size = stack_size((*stack));
+	while (i < size)
+	{
+		temp = *stack;
+		min = NULL;
+		while (temp)
+		{
+			if ((temp->index == -1) && (!min || temp->val < min->val))
+				min = temp;
+			temp = temp->next;
+		}
+		if (min)
+			min->index = i;
+		i++;
 	}
 }
