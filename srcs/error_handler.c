@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abturan <abturan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kdrturan <kdrturan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:37:22 by abturan           #+#    #+#             */
-/*   Updated: 2025/03/05 17:55:02 by abturan          ###   ########.fr       */
+/*   Updated: 2025/03/14 23:35:12 by kdrturan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,15 @@ int	is_int_range(char *str)
 	return (1);
 }
 
-void	cleaner(char **values)
+void	cleaner(char **values,int i)
 {
-	int	i;
 
-	i = 0;
-	while (values[i])
-		free(values[i++]);
-	free(values);
+	if (values)
+	{
+		while (values[i])
+			free(values[i++]);
+		free(values);
+	}
 	terminate_prog();
 }
 
@@ -97,12 +98,12 @@ void	check_errors(int ac, char **args)
 		i = 0;
 		values = ft_split(args[arg], ' ');
 		if (!values || !values[i])
-			cleaner(values);
+			cleaner(values,i);
 		while (values[i])
 		{
 			if (!values[i] || !is_numeric(values[i])
 				|| !is_int_range(values[i]) || ft_strlen(values[i]) > 11)
-				cleaner(values);
+				cleaner(values,i);
 			free(values[i]);
 			i++;
 		}
