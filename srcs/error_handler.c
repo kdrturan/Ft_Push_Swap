@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abturan <abturan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 15:37:22 by abturan           #+#    #+#             */
+/*   Updated: 2025/03/05 17:55:02 by abturan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	is_numeric(char *str)
@@ -8,7 +20,13 @@ int	is_numeric(char *str)
 	if (!str)
 		return (0);
 	if (str[0] == '-' || str[0] == '+')
+	{
 		i++;
+	}
+	if (!ft_isdigit(str[i]))
+	{
+		return (0);
+	}
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -18,30 +36,30 @@ int	is_numeric(char *str)
 	return (1);
 }
 
-long	ft_atol(const char *str) 
+long	ft_atol(const char *str)
 {
 	long	result;
-	int	sign;
-	int i;
-	
+	int		sign;
+	int		i;
+
 	i = 0;
 	result = 0;
 	sign = 1;
 	while (*str == ' ' || (*str >= 9 && *str <= 13))
 		str++;
-	if (*str == '-' || *str == '+') {
+	if (*str == '-' || *str == '+')
+	{
 		if (*str == '-')
 			sign = -1;
 		str++;
 	}
-	while (*str >= '0' && *str <= '9') {
+	while (*str >= '0' && *str <= '9')
+	{
 		result = result * 10 + (*str - '0');
 		str++;
 		i++;
 	}
-	if (i > 10)
-		terminate_prog();
-	return result * sign;
+	return (result * sign);
 }
 
 int	is_int_range(char *str)
@@ -54,30 +72,41 @@ int	is_int_range(char *str)
 	return (1);
 }
 
-void	terminate_prog() {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
-
-void	check_errors(int ac, char **args) 
+void	cleaner(char **values)
 {
 	int	i;
-	int	arg;
-	char **values;
 
+	i = 0;
+	while (values[i])
+		free(values[i++]);
+	free(values);
+	terminate_prog();
+}
+
+void	check_errors(int ac, char **args)
+{
+	int		i;
+	int		arg;
+	char	**values;
+
+	arg = 1;
 	if (ac < 2)
-		terminate_prog();
-	for (arg = 1; arg < ac; arg++) {
+		exit(EXIT_FAILURE);
+	while (arg < ac)
+	{
 		i = 0;
 		values = ft_split(args[arg], ' ');
 		if (!values || !values[i])
-			terminate_prog();
-		while (values[i]) {
-			if (!values[i] || !is_numeric(values[i]) || !is_int_range(values[i]))
-				terminate_prog();
+			cleaner(values);
+		while (values[i])
+		{
+			if (!values[i] || !is_numeric(values[i])
+				|| !is_int_range(values[i]) || ft_strlen(values[i]) > 11)
+				cleaner(values);
 			free(values[i]);
 			i++;
 		}
 		free(values);
+		arg++;
 	}
 }
